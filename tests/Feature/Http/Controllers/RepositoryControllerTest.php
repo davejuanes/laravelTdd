@@ -13,10 +13,14 @@ class RepositoryControllerTest extends TestCase
      *
      * @return void
      */
-    public function test_example()
+    public function test_guest()
     {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
+        $this->get('repositories')->assertRedirect('login');           // index
+        $this->get('repositories/1')->assertRedirect('login');         // show
+        $this->get('repositories/1/edit')->assertRedirect('login');    // edit
+        $this->put('repositories/1')->assertRedirect('login');         // update
+        $this->delete('repositories/1')->assertRedirect('login');      // destroy
+        $this->get('repositories/create')->assertRedirect('login');    // create
+        $this->post('repositories', [])->assertRedirect('login');      // guardar
     }
 }
