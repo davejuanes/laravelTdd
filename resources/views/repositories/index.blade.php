@@ -11,8 +11,9 @@
                 <table>
                     <thead>
                         <tr>
-                            <th></th>
-                            <th></th>
+                            <th>ID</th>
+                            <th>URL</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -20,10 +21,15 @@
                             <tr>
                                 <td class="border px-4 py-2">{{ $repository->id }}</td>
                                 <td class="border px-4 py-2">{{ $repository->url }}</td>
+                                <td class="px-4 py-2">
+                                    <a href="{{ route('repositories.show', $repository) }}" class="text-blue-500">
+                                        Ver
+                                    </a>
+                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="2">No hay repositorios creados</td>
+                                <td colspan="3">No hay repositorios creados</td>
                             </tr>
                         @endforelse
                     </tbody>
