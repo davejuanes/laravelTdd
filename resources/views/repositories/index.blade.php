@@ -13,7 +13,7 @@
                         <tr>
                             <th>ID</th>
                             <th>URL</th>
-                            <th>Acciones</th>
+                            <th colspan="2">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -26,10 +26,15 @@
                                         Ver
                                     </a>
                                 </td>
+                                <td>
+                                    <a href="{{ route('repositories.edit', $repository) }}" class="text-blue-500">
+                                        Editar
+                                    </a>
+                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="3">No hay repositorios creados</td>
+                                <td colspan="4">No hay repositorios creados</td>
                             </tr>
                         @endforelse
                     </tbody>
