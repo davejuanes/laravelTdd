@@ -7,13 +7,18 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <p class="text-right mb-4">
+                <a href="{{ route('repositories.create') }}" class="bg-blue-500 text-white font-bold py-2 px-4 text-xs">
+                    Agregar un nuevo repositorio
+                </a>
+            </p>
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
                 <table>
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>URL</th>
-                            <th colspan="2">Acciones</th>
+                            <th colspan="3">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,10 +36,17 @@
                                         Editar
                                     </a>
                                 </td>
+                                <td>
+                                    <form action="{{ route('repositories.destroy', $repository) }}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <input type="submit" value="Eliminar" class="px-4 rounded-md bg-red-500 text-white">
+                                    </form>
+                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4">No hay repositorios creados</td>
+                                <td colspan="5">No hay repositorios creados</td>
                             </tr>
                         @endforelse
                     </tbody>
