@@ -2,30 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\RepositoryRequest;
 use App\Models\Repository;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class RepositoryController extends Controller
 {
-    public function index(Request $request) {
+    use AuthorizesRequests;
+    public function index() {
         return view('repositories.index', [
-            'repositories' => $request->user()->repositories
+            'repositories' => auth()->user()->repositories
         ]);
     }
 
-    public function show(Request $request,Repository $repository) {
-        if ($request->user()->id != $repository->user_id) {
-            abort(403);
-        }
+    public function show(Repository $repository) {
+        $this->authorize('pass', $repository);
 
         return view('repositories.show', compact('repository'));
     }
 
-    public function edit(Request $request,Repository $repository) {
-        if ($request->user()->id != $repository->user_id) {
-            abort(403);
-        }
+    public function edit(Repository $repository) {
+        $this->authorize('pass', $repository);
 
         return view('repositories.edit', compact('repository'));
     }
@@ -41,19 +38,15 @@ class RepositoryController extends Controller
     }
     
     public function update(RepositoryRequest $request, Repository $repository) {
-        if ($request->user()->id != $repository->user_id) {
-            abort(403);
-        }
+        $this->authorize('pass', $repository);
 
         $repository->update($request->all());
 
         return redirect()->route('repositories.edit', $repository);
     }
 
-    public function destroy(Request $request, Repository $repository) {
-        if ($request->user()->id != $repository->user_id) {
-            abort(403);
-        }
+    public function destroy(Repository $repository) {
+        $this->authorize('pass', $repository);
 
         $repository->delete();
 
